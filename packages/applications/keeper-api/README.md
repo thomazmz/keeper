@@ -1,3 +1,3 @@
-# Nodelith Usage Example
+# Keeper API
 
-Simple server that wires controllers and dependencies through `@nodelith` libraries.
+API for the Keeper application.
