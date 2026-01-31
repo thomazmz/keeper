@@ -1,11 +1,13 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { AppRouter } from './AppRouter';
 
-// import { App } from './App.tsx'
+import * as React from 'react'
+import * as ReactDom from 'react-dom/client'
+import * as ReactRouter from "react-router-dom";
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <h1>Keeper</h1>
-    <p>A finance record-keeper that automatically syncs and extracts transactions from your Gmail emails into a structured, searchable ledger.</p>
-  </StrictMode>,
+ReactDom.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <ReactRouter.BrowserRouter>
+      <AppRouter/>
+    </ReactRouter.BrowserRouter>
+  </React.StrictMode>,
 )
