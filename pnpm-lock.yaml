@@ -24,7 +24,7 @@ importers:
         specifier: ^5.9.2
         version: 5.9.3
 
-  packages/applications/keeper-ui:
+  packages/applications/keeper-web:
     dependencies:
       react:
         specifier: ^19.2.0
