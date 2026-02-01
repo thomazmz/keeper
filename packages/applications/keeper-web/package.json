@@ -1,5 +1,5 @@
 {
-  "name": "keeper-web",
+  "name": "@keeper/web",
   "private": true,
   "version": "0.0.0",
   "type": "module",
