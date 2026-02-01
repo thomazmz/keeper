@@ -1,6 +1,6 @@
 import * as ReactRouter from 'react-router-dom'
 
-export function AppHome() {
+export function HomePage() {
   const navigate = ReactRouter.useNavigate();
 
   return (
