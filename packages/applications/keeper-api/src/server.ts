@@ -11,6 +11,10 @@ import { GoogleOauth } from './google/google-oauth/google-oauth.domain';
 class InMemoryGoogleOauthRepository implements GoogleOauthRepository {
   private records: GoogleOauth[] = []
 
+  async findAll(): Promise<GoogleOauth[]> {
+    return Promise.resolve(this.records)
+  }
+
   async findOne(filter: GoogleOauthRepository.FindOneParameters): Promise<GoogleOauth | undefined> {
     return Promise.resolve(this.records.find((record) => (false
       || record.id === filter.id
@@ -39,9 +43,15 @@ class InMemoryGoogleOauthRepository implements GoogleOauthRepository {
 
     if(!record) throw new Error('Oauth record not found.')
 
-    record.refreshToken = properties.refreshToken ?? record.refreshToken
-    record.refreshTokenExpiresAt = properties.refreshTokenExpiresAt ?? record.refreshTokenExpiresAt
-    record.refreshTokenExchangedAt = properties.refreshTokenExchangedAt ?? record.refreshTokenExchangedAt
+    const refreshToken = record.refreshToken
+    const refreshTokenExpiresAt = record.refreshTokenExpiresAt
+    const refreshTokenExchangedAt = record.refreshTokenExchangedAt
+
+    const muttable: any = record
+
+    muttable.refreshToken = properties.refreshToken ?? refreshToken
+    muttable.refreshTokenExpiresAt = properties.refreshTokenExpiresAt ?? refreshTokenExpiresAt
+    muttable.refreshTokenExchangedAt = properties.refreshTokenExchangedAt ?? refreshTokenExchangedAt
 
     return record
   }
@@ -68,20 +78,13 @@ app.get("/server/health", (_request: Request, response: Response) => {
 });
 
 app.post("/api/oauth/google", async (request: Request, response: Response) => {
-  const { code } = request.body;
+  const result = await googleOauthService.upsertOauthCredentials(request.body.code)
+  response.status(201).json(result);
+});
 
-  if (!code) {
-    response.status(400).json({ message: 'Missing authorization code' });
-    return;
-  }
-
-  const result = await googleOauthService.upsertOauthCredentials(code);
-
-  console.log(result)
-
-  response.json({
-    refreshToken: result.refreshToken,
-  });
+app.get("/api/oauth/google", async (_request: Request, response: Response) => {
+  const result = await googleOauthRepository.findAll()
+  response.status(200).json(result);
 });
 
 app.listen(3000, () => {
