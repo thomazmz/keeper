@@ -3,7 +3,6 @@ import z from 'zod';
 import { HttpClient } from '../http/HttpClient';
 
 export const ConnectGoogleResponseSchema = z.object({
-  accessToken: z.string(),
   refreshToken: z.string(),
 })
 
