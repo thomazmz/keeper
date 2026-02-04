@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  db:
+    image: mongo:7
+    container_name: keeper-database
+    env_file:
+      - .env.local
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USER:-admin}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD:-admin}
+      MONGO_INITDB_DATABASE: ${MONGODB_DATABASE:-keeper_database}
+    ports:
+      - "${MONGODB_PORT:-27017}:27017"
+    volumes:
+      - ./.volumes/mongodb:/data/db

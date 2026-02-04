@@ -9,15 +9,15 @@
       "import": "./dist/domain/library.js",
       "require": "./dist/domain/library.js"
     },
-    "./application": {
-      "types": "./dist/application/library.d.ts",
-      "import": "./dist/application/library.js",
-      "require": "./dist/application/library.js"
+    "./resources": {
+      "types": "./dist/resources/library.d.ts",
+      "import": "./dist/resources/library.js",
+      "require": "./dist/resources/library.js"
     },
-    "./infrastructure": {
-      "types": "./dist/infrastructure/library.d.ts",
-      "import": "./dist/infrastructure/library.js",
-      "require": "./dist/infrastructure/library.js"
+    "./routes": {
+      "types": "./dist/routes/library.d.ts",
+      "import": "./dist/routes/library.js",
+      "require": "./dist/routes/library.js"
     }
   },
   "scripts": {
@@ -30,11 +30,12 @@
     "@nodelith/identity": "link:../nodelith/packages/identity",
     "@nodelith/injection": "link:../nodelith/packages/injection",
     "@nodelith/utilities": "link:../nodelith/packages/utilities",
-    "cors": "^2.8.6",
     "acorn": "^8.15.0",
+    "cors": "^2.8.6",
     "express": "^5.0.3",
     "googleapis": "^171.0.0",
-    "jsonwebtoken": "^9.0.3"
+    "jsonwebtoken": "^9.0.3",
+    "mongodb": "^7.1.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",

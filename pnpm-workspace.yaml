@@ -12,3 +12,4 @@ overrides:
   '@nodelith/contract': link:../nodelith/packages/contract
   '@nodelith/config': link:../nodelith/packages/config
   '@nodelith/express': link:../nodelith/packages/express
+  '@nodelith/mongodb': link:../nodelith/packages/mongodb

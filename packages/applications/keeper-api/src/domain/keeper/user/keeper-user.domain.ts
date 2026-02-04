@@ -1,4 +1,4 @@
-export type User = {
+export type KeeperUser = {
   id: string, 
   createdAt: Date,
   updatedAt: Date,

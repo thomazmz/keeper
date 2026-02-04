@@ -4,8 +4,8 @@ import { HttpMethod } from '@nodelith/http'
 import { Controller } from '@nodelith/controller'
 
 import { ConnectWithGoogleRequest } from './oauth.contracts'
-import { KeeperAuthService } from '@keeper/domain'
-import { KeeperTokenPair } from '@keeper/domain'
+import { KeeperAuthService } from 'domain/domain.library'
+import { KeeperTokenPair } from 'domain/domain.library'
 
 @Controller.Router('/auth')
 export class AuthController {

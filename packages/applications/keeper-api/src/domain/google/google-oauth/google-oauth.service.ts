@@ -1,5 +1,5 @@
-import { GoogleOauthClient } from "./google-oauth.client";
 import { GoogleOauth } from "./google-oauth.domain";
+import { GoogleOauthClient } from "./google-oauth.client";
 import { GoogleOauthRepository } from "./google-oauth.repository";
 
 export class GoogleOauthService {
@@ -19,7 +19,7 @@ export class GoogleOauthService {
 
     const profile = await this.googleOauthClient.getOauthProfile(credentials)
 
-    const oauth = await this.googleOauthRepository.findOne({
+    const oauth = await this.googleOauthRepository.findOneByQuery({
       sourceId: profile.sourceId,
       email: profile.email,
     })
@@ -34,8 +34,7 @@ export class GoogleOauthService {
       })
     }
 
-    return this.googleOauthRepository.updateOne({
-      id: oauth.id,
+    return this.googleOauthRepository.updateOneById(oauth.id, {
       refreshToken: credentials.refreshToken,
       refreshTokenExpiresAt: credentials.refreshTokenExpiresAt,
       refreshTokenExchangedAt: credentials.refreshTokenExchangedAt

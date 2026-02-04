@@ -29,7 +29,8 @@
     "strictBindCallApply": false,
     "strictNullChecks": true,
     "paths": {
-      "@keeper/domain": ["domain/library.ts"],
+      "@keeper/domain": ["domain/domain.library.ts"],
+      "@keeper/resources": ["resources/domain.library.ts"],
     }
   }
 }

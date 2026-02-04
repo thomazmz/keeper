@@ -1,6 +1,7 @@
-import { GoogleOauthService } from '../../google/google.library'
-import { KeeperUserService } from '@keeper/domain'
-import { KeeperJwtService } from '@keeper/domain'
+import { GoogleOauthService } from 'domain/domain.library'
+import { KeeperUserService } from 'domain/domain.library'
+import { KeeperJwtService } from 'domain/domain.library'
+
 import { KeeperTokenPair } from './keeper-auth.domain'
 
 export class KeeperAuthService {
@@ -19,8 +20,7 @@ export class KeeperAuthService {
   }
 
   public async connectWithGoogle(oauthCode: string): Promise<KeeperTokenPair> {
-    // const googleOauth = await this.googleOauthService.upsertOauthCredentials(oauthCode)
-    const googleOauth = { email: 'thomaz.zandonotto@gmail.com' }
+    const googleOauth = await this.googleOauthService.upsertOauthCredentials(oauthCode)
 
     const keeperUser = await this.keeperUserService.resolveKeeperUser({
       email: googleOauth.email

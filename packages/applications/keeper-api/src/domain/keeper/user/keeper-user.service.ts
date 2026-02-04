@@ -1,7 +1,5 @@
 import { KeeperUserRepository } from './keeper-user.repository';
-import { User } from './keeper-user.domain';
-
-import crypto from 'crypto';
+import { KeeperUser } from './keeper-user.domain';
 
 export class KeeperUserService {
   public readonly keeperUserRepository: KeeperUserRepository
@@ -10,23 +8,17 @@ export class KeeperUserService {
     this.keeperUserRepository = keeperUserRepository
   }
 
-  public async resolveKeeperUser(properties: { email: string }): Promise<User> {
+  public async resolveKeeperUser(properties: { email: string }): Promise<KeeperUser> {
     const keeperUser = await this.findKeeperUser(properties)
     if(!keeperUser) return this.createKeeperUser(properties)
     return keeperUser
   }
 
-  public async findKeeperUser(properties: { email: string }): Promise<User | undefined> {
-    // return this.keeperUserRepository.findOneByQuery(properties)
-    return {
-      id: crypto.randomUUID(),
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      email: properties.email,
-    }
+  public async findKeeperUser(properties: { email: string }): Promise<KeeperUser | undefined> {
+    return this.keeperUserRepository.findOneByQuery(properties)
   }
 
-  private async createKeeperUser(properties: { email: string }): Promise<User> {
+  private async createKeeperUser(properties: { email: string }): Promise<KeeperUser> {
     return this.keeperUserRepository.createOne(properties)
   }
 }

@@ -1,7 +1,7 @@
 export type GoogleOauth = {
   readonly id: string
   readonly createdAt: Date,
-  readonly updatedAd: Date
+  readonly updatedAt: Date
   readonly email: GoogleOauth.ProfileMetadata['email']
   readonly sourceId: GoogleOauth.ProfileMetadata['sourceId']
   readonly refreshToken: GoogleOauth.CredentialsMetadata['refreshToken']

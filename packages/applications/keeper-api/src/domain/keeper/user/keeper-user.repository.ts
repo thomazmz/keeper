@@ -1,6 +1,6 @@
 import { CoreRepository } from "@nodelith/core";
-import { User } from './keeper-user.domain'
+import { KeeperUser } from './keeper-user.domain'
 
-export interface KeeperUserRepository extends CoreRepository<User> {
+export interface KeeperUserRepository extends CoreRepository<KeeperUser> {
 
 }
