@@ -9,7 +9,12 @@
     "script": "node --inspect --enable-source-maps --env-file=.env.local dist/script.js"
   },
   "dependencies": {
+    "@nodelith/core": "link:../nodelith/packages/core",
+    "@nodelith/identity": "link:../nodelith/packages/identity",
+    "@nodelith/utilities": "link:../nodelith/packages/utilities",
+    "@nodelith/injection": "link:../nodelith/packages/injection",
     "zod": "^4.3.6",
+    "acorn": "^8.15.0",
     "cors": "^2.8.6",
     "express": "^5.0.3",
     "googleapis": "^171.0.0"
