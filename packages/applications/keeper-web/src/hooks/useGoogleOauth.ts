@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { OauthApi } from '../api/OauthApi';
+import { AuthApi } from '../api/OauthApi';
 
 const GOOGLE_OAUTH_CLIENT_ID = import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID;
 const GOOGLE_OAUTH_REDIRECT_URL = import.meta.env.VITE_GOOGLE_OAUTH_REDIRECT_URL;
@@ -13,14 +13,14 @@ const GOOGLE_OAUTH_INCLUDE_GRANTED_SCOPES = import.meta.env.VITE_GOOGLE_OAUTH_IN
 export function useGoogleOauth() {
   const [ loading, setLoading ] = React.useState(false)
 
-  const [ error, setError ] = React.useState<OauthApi.ConnectWithGoogleError | undefined>(undefined)
+  const [ error, setError ] = React.useState<AuthApi.ConnectWithGoogleError | undefined>(undefined)
 
-  const [ data, setData ] = React.useState<OauthApi.ConnectWithGoogleResponse | undefined>(undefined)
+  const [ data, setData ] = React.useState<AuthApi.ConnectWithGoogleResponse | undefined>(undefined)
 
-  const connect = React.useCallback(async (code: OauthApi.ConnectWithGoogleRequest['code']) => {
+  const connect = React.useCallback(async (code: AuthApi.ConnectWithGoogleRequest['code']) => {
     reset()
   
-    void OauthApi.connectWithGoogle({ code })
+    void AuthApi.connectWithGoogle({ code })
       .then((result) => setData(result))
       .catch((error) => setError(error))
       .finally(() => setLoading(false))

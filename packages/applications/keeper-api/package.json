@@ -3,6 +3,23 @@
   "version": "0.0.1",
   "private": true,
   "type": "commonjs",
+  "exports": {
+    "./domain": {
+      "types": "./dist/domain/library.d.ts",
+      "import": "./dist/domain/library.js",
+      "require": "./dist/domain/library.js"
+    },
+    "./application": {
+      "types": "./dist/application/library.d.ts",
+      "import": "./dist/application/library.js",
+      "require": "./dist/application/library.js"
+    },
+    "./infrastructure": {
+      "types": "./dist/infrastructure/library.d.ts",
+      "import": "./dist/infrastructure/library.js",
+      "require": "./dist/infrastructure/library.js"
+    }
+  },
   "scripts": {
     "build": "tsc --project ./build.json",
     "start": "node --inspect --enable-source-maps --env-file=.env.local dist/server.js",
@@ -11,16 +28,17 @@
   "dependencies": {
     "@nodelith/core": "link:../nodelith/packages/core",
     "@nodelith/identity": "link:../nodelith/packages/identity",
-    "@nodelith/utilities": "link:../nodelith/packages/utilities",
     "@nodelith/injection": "link:../nodelith/packages/injection",
-    "zod": "^4.3.6",
-    "acorn": "^8.15.0",
+    "@nodelith/utilities": "link:../nodelith/packages/utilities",
     "cors": "^2.8.6",
+    "acorn": "^8.15.0",
     "express": "^5.0.3",
-    "googleapis": "^171.0.0"
+    "googleapis": "^171.0.0",
+    "jsonwebtoken": "^9.0.3"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.2.1",
     "typescript": "^5.9.2"
   }

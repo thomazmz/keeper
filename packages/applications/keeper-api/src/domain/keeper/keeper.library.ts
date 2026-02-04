@@ -1,2 +1,7 @@
-export type * from './oauth/keeper-oauth.service'
+export type * from './auth/keeper-auth.service'
+export type * from './auth/keeper-auth.domain'
+export type * from './user/keeper-user.service'
+export type * from './user/keeper-user.domain'
+export type * from './jwt/keeper-jwt.service'
+export type * from './jwt/keeper-jwt.domain'
 export * from './keeper.module'

@@ -6,7 +6,7 @@ export const ConnectGoogleResponseSchema = z.object({
   email: z.string()
 })
 
-export declare namespace OauthApi {
+export declare namespace AuthApi {
   export type ConnectWithGoogleRequest = {
     readonly code: string;
   };
@@ -19,9 +19,9 @@ export declare namespace OauthApi {
     z.infer<typeof ConnectGoogleResponseSchema>
 }
 
-export const OauthApi = Object.freeze({
-  async connectWithGoogle(request: OauthApi.ConnectWithGoogleRequest): Promise<OauthApi.ConnectWithGoogleResponse> {
-    return (await HttpClient.instance.post('/oauth/google', {
+export const AuthApi = Object.freeze({
+  async connectWithGoogle(request: AuthApi.ConnectWithGoogleRequest): Promise<AuthApi.ConnectWithGoogleResponse> {
+    return (await HttpClient.instance.post('/auth/google', {
       schema: ConnectGoogleResponseSchema,
       body: request,
     }))

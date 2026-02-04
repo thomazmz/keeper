@@ -1,8 +1,8 @@
 import { Contract } from '@nodelith/contract'
 
-export type ConnectWithGoogleRequestContract = Contract.Infer<typeof ConnectWithGoogleRequestContract>
+export type ConnectWithGoogleRequest = Contract.Infer<typeof ConnectWithGoogleRequest>
 
-export const ConnectWithGoogleRequestContract = Contract.object({
+export const ConnectWithGoogleRequest = Contract.object({
   code: Contract.string().required()
 })
 
