@@ -1,6 +1,6 @@
-import { GoogleOauthService } from '../google/google.library'
+import { GoogleOauthService } from '../../google/google.library'
 
-export class OauthService {
+export class KeeperOauthService {
   private readonly googleOauthService: GoogleOauthService
 
   public constructor(googleOauthService: GoogleOauthService) {

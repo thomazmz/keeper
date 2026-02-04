@@ -4,22 +4,22 @@ import { HttpMethod } from '@nodelith/http'
 import { Controller } from '@nodelith/controller'
 
 import { ConnectWithGoogleRequestContract } from './oauth.contracts'
-import { OauthService } from '../domain/library'
+import { KeeperOauthService } from '../domain/library'
 
 @Controller.Router('/oauth')
 export class OauthController {
-  private readonly oauthService: OauthService
+  private readonly keeperOauthService: KeeperOauthService
 
-  public constructor(oauthService: OauthService) {
-    this.oauthService = oauthService
+  public constructor(keeperOauthService: KeeperOauthService) {
+    this.keeperOauthService = keeperOauthService
   }
 
   @Controller.Path('/google')
   @Controller.Method(HttpMethod.Post)
   @Controller.SuccessResponse(HttpStatus.Ok)
   @Controller.RequestBody(ConnectWithGoogleRequestContract)
-  public async connectWithGoogle(body: ConnectWithGoogleRequestContract): Promise<string> {
-    const result = await this.oauthService.connectWithGoogle(body.code)
-    return result.email
+  public async connectWithGoogle(body: ConnectWithGoogleRequestContract) {
+    const result = await this.keeperOauthService.connectWithGoogle(body.code)
+    return { email: result.email }
   }
 }

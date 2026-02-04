@@ -1,3 +1,3 @@
 export type * from './google/google.library'
-export type * from './oauth/oauth.library'
+export type * from './keeper/keeper.library'
 export * from './module'
