@@ -8,5 +8,12 @@
     "build:watch": "pnpm --parallel --if-present run build:watch",
     "start": "pnpm --recursive --if-present run start",
     "start:watch": "pnpm --parallel --if-present run start:watch"
+  },
+  "dependencies": {
+    "@nodelith/config": "link:../nodelith/packages/config",
+    "@nodelith/contract": "link:../nodelith/packages/contract",
+    "@nodelith/controller": "link:../nodelith/packages/controller",
+    "@nodelith/express": "link:../nodelith/packages/express",
+    "@nodelith/http": "link:../nodelith/packages/http"
   }
 }

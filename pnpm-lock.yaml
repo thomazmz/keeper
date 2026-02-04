@@ -4,12 +4,55 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@nodelith/core': link:../nodelith/packages/core
+  packages: link:../nodelith/packages
+  '@nodelith/injection': link:../nodelith/packages/injection
+  '@nodelith/identity': link:../nodelith/packages/identity
+  '@nodelith/utilities': link:../nodelith/packages/utilities
+  '@nodelith/controller': link:../nodelith/packages/controller
+  '@nodelith/http': link:../nodelith/packages/http
+  '@nodelith/contract': link:../nodelith/packages/contract
+  '@nodelith/config': link:../nodelith/packages/config
+  '@nodelith/express': link:../nodelith/packages/express
+
 importers:
 
-  .: {}
+  .:
+    dependencies:
+      '@nodelith/config':
+        specifier: link:../nodelith/packages/config
+        version: link:../nodelith/packages/config
+      '@nodelith/contract':
+        specifier: link:../nodelith/packages/contract
+        version: link:../nodelith/packages/contract
+      '@nodelith/controller':
+        specifier: link:../nodelith/packages/controller
+        version: link:../nodelith/packages/controller
+      '@nodelith/express':
+        specifier: link:../nodelith/packages/express
+        version: link:../nodelith/packages/express
+      '@nodelith/http':
+        specifier: link:../nodelith/packages/http
+        version: link:../nodelith/packages/http
 
   packages/applications/keeper-api:
     dependencies:
+      '@nodelith/core':
+        specifier: link:../../../../nodelith/packages/core
+        version: link:../../../../nodelith/packages/core
+      '@nodelith/identity':
+        specifier: link:../../../../nodelith/packages/identity
+        version: link:../../../../nodelith/packages/identity
+      '@nodelith/injection':
+        specifier: link:../../../../nodelith/packages/injection
+        version: link:../../../../nodelith/packages/injection
+      '@nodelith/utilities':
+        specifier: link:../../../../nodelith/packages/utilities
+        version: link:../../../../nodelith/packages/utilities
+      acorn:
+        specifier: ^8.15.0
+        version: 8.15.0
       cors:
         specifier: ^2.8.6
         version: 2.8.6

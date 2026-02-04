@@ -1,3 +1,14 @@
-packages: 
-  - 'packages/**'
-  - 'example/**'
+packages:
+  - packages/**
+  - example/**
+overrides:
+  '@nodelith/core': link:../nodelith/packages/core
+  packages: link:../nodelith/packages
+  '@nodelith/injection': link:../nodelith/packages/injection
+  '@nodelith/identity': link:../nodelith/packages/identity
+  '@nodelith/utilities': link:../nodelith/packages/utilities
+  '@nodelith/controller': link:../nodelith/packages/controller
+  '@nodelith/http': link:../nodelith/packages/http
+  '@nodelith/contract': link:../nodelith/packages/contract
+  '@nodelith/config': link:../nodelith/packages/config
+  '@nodelith/express': link:../nodelith/packages/express
