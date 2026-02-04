@@ -30,7 +30,6 @@ export function SignupPage() {
   }
 
   if(oauth.error) {
-    console.log(oauth.error)
     return (
       <div>
         <h1>Sign Up for Keeper</h1>
