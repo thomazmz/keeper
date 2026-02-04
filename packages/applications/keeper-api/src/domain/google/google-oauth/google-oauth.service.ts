@@ -1,6 +1,7 @@
 import { GoogleOauth } from "./google-oauth.domain";
 import { GoogleOauthClient } from "./google-oauth.client";
 import { GoogleOauthRepository } from "./google-oauth.repository";
+import { HttpBadRequestError, HttpClientError } from "@nodelith/http";
 
 export class GoogleOauthService {
   private googleOauthClient: GoogleOauthClient
@@ -12,6 +13,12 @@ export class GoogleOauthService {
   ) {
     this.googleOauthClient = googleOauthClient
     this.googleOauthRepository = googleOauthRepository
+  }
+
+  public async getOauthCredentialsByEmail(email: string): Promise<GoogleOauth> {
+    const credentials = await this.googleOauthRepository.findOneByQuery({ email })
+    if(!credentials) HttpBadRequestError.throw(`Could not find oauth credentials for email ${email}`)
+    return credentials
   }
 
   public async upsertOauthCredentials(code: string): Promise<GoogleOauth> {

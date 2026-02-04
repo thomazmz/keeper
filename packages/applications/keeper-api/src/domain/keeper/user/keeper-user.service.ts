@@ -8,17 +8,17 @@ export class KeeperUserService {
     this.keeperUserRepository = keeperUserRepository
   }
 
-  public async resolveKeeperUser(properties: { email: string }): Promise<KeeperUser> {
-    const keeperUser = await this.findKeeperUser(properties)
-    if(!keeperUser) return this.createKeeperUser(properties)
+  public async resolveKeeperUserByEmail(email: string): Promise<KeeperUser> {
+    const keeperUser = await this.findKeeperUserByEmail(email)
+    if(!keeperUser) return this.createKeeperUserByEmail(email)
     return keeperUser
   }
 
-  public async findKeeperUser(properties: { email: string }): Promise<KeeperUser | undefined> {
-    return this.keeperUserRepository.findOneByQuery(properties)
+  public async findKeeperUserByEmail(email: string): Promise<KeeperUser | undefined> {
+    return this.keeperUserRepository.findOneByQuery({ email })
   }
 
-  private async createKeeperUser(properties: { email: string }): Promise<KeeperUser> {
-    return this.keeperUserRepository.createOne(properties)
+  private async createKeeperUserByEmail(email: string): Promise<KeeperUser> {
+    return this.keeperUserRepository.createOne({ email })
   }
 }

@@ -5,8 +5,13 @@ import { MongodbRepository } from "@nodelith/mongodb"
 import { GoogleOauthRepository } from "domain/domain.library"
 
 export class MongodbGoogleOauthRepository extends MongodbRepository<GoogleOauth> implements GoogleOauthRepository {
+  private static readonly COLLECTION_NAME = 'google_oauth'
+  private static readonly DATABASE_NAME = 'keeper_database'
+
   public constructor(mongodbClient: MongoClient) {
-    super('google_oauth', 'keeper_database', mongodbClient)
+    super(MongodbGoogleOauthRepository.COLLECTION_NAME, MongodbGoogleOauthRepository.DATABASE_NAME, mongodbClient)
+    this.collection.createIndex('sourceId', { unique: true })
+    this.collection.createIndex('email', { unique: true })
   }
 
   protected map(document: MongodbDocument<GoogleOauth>): GoogleOauth {

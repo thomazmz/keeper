@@ -1,23 +1,16 @@
 
 import { google, Auth } from 'googleapis'
-
+import { GoogleConfig } from '@keeper/domain'
 import { GoogleOauth } from './google-oauth.domain'
-import { GoogleOauthConfigRecord } from './google-oauth.config'
 
-export abstract class GoogleClient {
-  protected readonly clientId: string
-
-  protected readonly clientSecret: string
-
-  protected constructor(googleOauthConfigRecord: GoogleOauthConfigRecord) {
-    this.clientId = googleOauthConfigRecord.clientId
-    this.clientSecret = googleOauthConfigRecord.clientSecret
-  }
+export class GoogleOauthClient {
+  public constructor(private readonly googleConfig: GoogleConfig) { }
 
   protected resolveOauthServerClient(options?: Auth.OAuth2ClientOptions) {
     return new google.auth.OAuth2({ ...options,
-      clientSecret: this.clientSecret,
-      clientId: this.clientId,
+      clientSecret: this.googleConfig.clientSecret,
+      redirectUri: this.googleConfig.redirectUri,
+      clientId: this.googleConfig.clientId,
     });
   }
 
@@ -25,21 +18,6 @@ export abstract class GoogleClient {
     const userClient = this.resolveOauthServerClient()
     userClient.setCredentials({ refresh_token: credentials.refreshToken })
     return userClient
-  }
-}
-
-export class GoogleOauthClient extends GoogleClient {
-  protected readonly redirectUri: string;
-
-  public constructor(googleOauthConfigRecord: GoogleOauthConfigRecord) {
-    super(googleOauthConfigRecord)
-    this.redirectUri = googleOauthConfigRecord.redirectUri
-  }
-
-  protected override resolveOauthServerClient(options?: Auth.OAuth2ClientOptions) {
-    return super.resolveOauthServerClient({ ...options,
-      redirectUri: this.redirectUri
-    })
   }
 
   public async getOauthProfile(credentials: GoogleOauth.CredentialsMetadata): Promise<GoogleOauth.ProfileMetadata> {

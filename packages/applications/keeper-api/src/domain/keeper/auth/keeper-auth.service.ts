@@ -1,19 +1,22 @@
-import { GoogleOauthService } from 'domain/domain.library'
+import { GoogleInbox, GoogleInboxService, GoogleOauthService } from 'domain/domain.library'
 import { KeeperUserService } from 'domain/domain.library'
 import { KeeperJwtService } from 'domain/domain.library'
 
 import { KeeperTokenPair } from './keeper-auth.domain'
 
 export class KeeperAuthService {
+  private readonly googleInboxService: GoogleInboxService
   private readonly googleOauthService: GoogleOauthService
   private readonly keeperUserService: KeeperUserService
   private readonly keeperJwtService: KeeperJwtService
 
   public constructor(
+    googleInboxService: GoogleInboxService,
     googleOauthService: GoogleOauthService,
     keeperUserService: KeeperUserService,
     keeperJwtService: KeeperJwtService,
   ) {
+    this.googleInboxService = googleInboxService
     this.googleOauthService = googleOauthService
     this.keeperUserService = keeperUserService
     this.keeperJwtService = keeperJwtService
@@ -22,9 +25,9 @@ export class KeeperAuthService {
   public async connectWithGoogle(oauthCode: string): Promise<KeeperTokenPair> {
     const googleOauth = await this.googleOauthService.upsertOauthCredentials(oauthCode)
 
-    const keeperUser = await this.keeperUserService.resolveKeeperUser({
-      email: googleOauth.email
-    })
+    const keeperUser = await this.keeperUserService.resolveKeeperUserByEmail(googleOauth.email)
+    
+    await this.googleInboxService.resolveGoogleInboxByEmail(googleOauth.email)
 
     return this.createTokenPair({
       subjectKey: keeperUser.id,

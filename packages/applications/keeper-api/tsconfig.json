@@ -1,5 +1,5 @@
 {
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/domain/google/google-inbox"],
   "compilerOptions": {
     "inlineSources": true,
     "sourceMap": true,

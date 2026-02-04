@@ -5,8 +5,12 @@ import { MongodbRepository } from "@nodelith/mongodb"
 import { KeeperUserRepository } from "domain/domain.library"
 
 export class MongodbKeeperUserRepository extends MongodbRepository<KeeperUser> implements KeeperUserRepository {
+  private static readonly COLLECTION_NAME = 'keeper_user'
+  private static readonly DATABASE_NAME = 'keeper_database'
+
   public constructor(mongodbClient: MongoClient) {
-    super('keeper_user', 'keeper_database', mongodbClient)
+    super(MongodbKeeperUserRepository.COLLECTION_NAME, MongodbKeeperUserRepository.DATABASE_NAME, mongodbClient)
+    this.collection.createIndex('email', { unique: true })
   }
 
   protected map(document: MongodbDocument<KeeperUser>): KeeperUser {
