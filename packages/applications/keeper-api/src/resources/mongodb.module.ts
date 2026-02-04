@@ -1,9 +1,9 @@
 import { InjectionModule } from "@nodelith/injection";
 import { MongodbClientInitializer } from "@nodelith/mongodb";
 import { MongodbConfigInitializer } from "@nodelith/mongodb";
-import { MongodbKeeperUserRepository } from "./mongodb/resources/mongodb-keeper-user.repository";
-import { MongodbGoogleOauthRepository } from "./mongodb/resources/mongodb-google-oauth.repository";
-import { MongodbGoogleInboxRepository } from "./mongodb/resources/mongodb-google-inbox.repository";
+import { MongodbKeeperUserRepository } from "./mongodb/repositories/mongodb-keeper-user.repository";
+import { MongodbGoogleOauthRepository } from "./mongodb/repositories/mongodb-google-oauth.repository";
+import { MongodbGoogleInboxRepository } from "./mongodb/repositories/mongodb-google-inbox.repository";
 
 export const InfraModule = InjectionModule.create()
 InfraModule.mapClassInitializer('mongodbConfig', MongodbConfigInitializer)

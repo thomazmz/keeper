@@ -1,8 +1,8 @@
 import { InjectionModule } from "@nodelith/injection";
-import { KeeperJwtConfig } from "./jwt/keeper-jwt.config";
-import { KeeperJwtService } from "./jwt/keeper-jwt.service";
-import { KeeperAuthService } from "./auth/keeper-auth.service";
-import { KeeperUserService } from "./user/keeper-user.service";
+import { KeeperJwtConfig } from "./keeper-jwt/keeper-jwt.config";
+import { KeeperJwtService } from "./keeper-jwt/keeper-jwt.service";
+import { KeeperAuthService } from "./keeper-auth/keeper-auth.service";
+import { KeeperUserService } from "./keeper-user/keeper-user.service";
 
 export const KeeperModule = InjectionModule.create()
 KeeperModule.mapClassRegistration('keeperUserService', KeeperUserService)
