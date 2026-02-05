@@ -3,7 +3,6 @@ import * as ReactRouter from "react-router-dom";
 import { HomePage } from './pages/HomePage';
 import { SignupPage } from './pages/SignUpPage'
 
-
 export function AppRouter() {
   return (
     <ReactRouter.Routes>

@@ -4,20 +4,10 @@
   "private": true,
   "type": "commonjs",
   "exports": {
-    "./domain": {
-      "types": "./dist/domain/library.d.ts",
-      "import": "./dist/domain/library.js",
-      "require": "./dist/domain/library.js"
-    },
     "./resources": {
-      "types": "./dist/resources/library.d.ts",
-      "import": "./dist/resources/library.js",
-      "require": "./dist/resources/library.js"
-    },
-    "./routes": {
-      "types": "./dist/routes/library.d.ts",
-      "import": "./dist/routes/library.js",
-      "require": "./dist/routes/library.js"
+      "types": "./dist/resources/module.d.ts",
+      "import": "./dist/resources/module.js",
+      "require": "./dist/resources/module.js"
     }
   },
   "scripts": {

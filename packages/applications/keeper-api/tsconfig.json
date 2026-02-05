@@ -1,5 +1,5 @@
 {
-  "include": ["src/**/*.ts", "src/domain/google/google-inbox"],
+  "include": ["src"],
   "compilerOptions": {
     "inlineSources": true,
     "sourceMap": true,
@@ -29,8 +29,7 @@
     "strictBindCallApply": false,
     "strictNullChecks": true,
     "paths": {
-      "@keeper/domain": ["domain/domain.library.ts"],
-      "@keeper/resources": ["resources/domain.library.ts"],
+      "@keeper/api/*": ["@keeper/api/*/module.ts"],
     }
   }
 }
