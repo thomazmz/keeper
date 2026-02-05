@@ -29,7 +29,7 @@ export class GoogleInboxService {
     return emailInbox
   }
 
-  public async upsertGoogleInboxByEmail(email:string, cursor: string): Promise<GoogleInbox> {
+  public async upsertGoogleInboxByEmail(email:string, cursor: string): Promise<GoogleInbox | undefined> {
     const emailInbox = this.findGoogleInboxByEmail(email)
     if(!emailInbox) return this.createGoogleInboxByEmail(email, cursor)
     return this.updateGoogleInboxByEmail(email, cursor)
@@ -47,8 +47,12 @@ export class GoogleInboxService {
     return this.googleInboxRepository.createOne({cursor, email })
   }
 
-  private async updateGoogleInboxByEmail(email: string, cursor: string): Promise<GoogleInbox> {
-    const emailInbox = await this.getGoogleInboxByEmail(email)
-    return this.googleInboxRepository.updateOneById(emailInbox.id, { cursor })
+  private async updateGoogleInboxByEmail(email: string, cursor: string): Promise<GoogleInbox | undefined> {
+    const currentInbox = await this.getGoogleInboxByEmail(email)
+    const updatedInbox = this.googleInboxRepository.updateOneById(currentInbox.id, { cursor })
+
+    return updatedInbox ?? HttpBadRequestError.throw(
+      `Could not find Inbox instance with id ${currentInbox.id}`
+    )
   }
 }

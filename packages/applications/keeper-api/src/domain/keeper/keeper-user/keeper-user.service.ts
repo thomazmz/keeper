@@ -2,11 +2,9 @@ import { KeeperUserRepository } from './keeper-user.repository';
 import { KeeperUser } from './keeper-user.domain';
 
 export class KeeperUserService {
-  public readonly keeperUserRepository: KeeperUserRepository
-
-  public constructor(keeperUserRepository: KeeperUserRepository) {
-    this.keeperUserRepository = keeperUserRepository
-  }
+  public constructor(
+    private readonly keeperUserRepository: KeeperUserRepository
+  ) {}
 
   public async resolveKeeperUserByEmail(email: string): Promise<KeeperUser> {
     const keeperUser = await this.findKeeperUserByEmail(email)

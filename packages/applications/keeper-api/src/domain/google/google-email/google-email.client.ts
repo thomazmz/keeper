@@ -3,10 +3,12 @@
 import { google, Auth } from 'googleapis'
 import { GoogleInbox } from '@keeper/domain'
 import { GoogleOauth } from '@keeper/domain'
-import { GoogleConfig } from '@keeper/domain';
-import { GoogleEmail } from './google-email.domain'
+import { KeeperEmail } from '@keeper/domain'
+import { GoogleConfig } from '@keeper/domain'
 
 export class GoogleEmailClient {
+  private static EMAIL_SOURCE = 'google-api'
+
   public constructor(private readonly googleConfig: GoogleConfig) { }
 
   protected resolveOauthServerClient(options?: Auth.OAuth2ClientOptions) {
@@ -27,7 +29,7 @@ export class GoogleEmailClient {
   }
 
 
-  public async getMessagesMetadata(credentials: GoogleOauth.CredentialsMetadata, inbox: GoogleInbox.Metadata): Promise<GoogleEmail.MessageMetadata[]> {
+  public async getMessagesMetadata(credentials: GoogleOauth.CredentialsMetadata, inbox: GoogleInbox.Metadata): Promise<KeeperEmail.MessageMetadata[]> {
     const client = await this.resolveGmailClient(credentials)
 
     const response = await client.users.history.list({
@@ -63,7 +65,7 @@ export class GoogleEmailClient {
      return fulfilledResults
   }
 
-  private async getEmailMessageMetadata(credentials: GoogleOauth.CredentialsMetadata, sourceId: string): Promise<GoogleEmail.MessageMetadata> {
+  private async getEmailMessageMetadata(credentials: GoogleOauth.CredentialsMetadata, sourceId: string): Promise<KeeperEmail.MessageMetadata> {
     const client = await this.resolveGmailClient(credentials)
     const response = await client.users.messages.get({
       metadataHeaders: ['from', 'subject', 'date', 'to'],
@@ -98,7 +100,7 @@ export class GoogleEmailClient {
 
     const date = new Date(timestamp)
 
-    return {
+    return { source: GoogleEmailClient.EMAIL_SOURCE,
       recipient,
       sourceId,
       subject,

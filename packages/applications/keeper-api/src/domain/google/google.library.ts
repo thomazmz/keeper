@@ -22,4 +22,3 @@ export type * from './google-inbox/google-inbox.domain.ts'
 ////////////////////////////////////////////////
 // Email Email
 export type * from './google-email/google-email.client.ts'
-export type * from './google-email/google-email.domain.ts'

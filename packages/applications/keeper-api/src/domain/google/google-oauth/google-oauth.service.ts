@@ -41,11 +41,15 @@ export class GoogleOauthService {
       })
     }
 
-    return this.googleOauthRepository.updateOneById(oauth.id, {
+    const updatedRecord = await this.googleOauthRepository.updateOneById(oauth.id, {
       refreshToken: credentials.refreshToken,
       refreshTokenExpiresAt: credentials.refreshTokenExpiresAt,
       refreshTokenExchangedAt: credentials.refreshTokenExchangedAt
     })
+
+    return updatedRecord ?? HttpBadRequestError.throw(
+      `Could not find Oauth instance with id ${oauth.id}`
+    )
   }
 }
 
