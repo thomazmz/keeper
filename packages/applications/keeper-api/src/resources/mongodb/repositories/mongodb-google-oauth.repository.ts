@@ -10,8 +10,8 @@ export class MongodbGoogleOauthRepository extends MongodbRepository<GoogleOauth>
 
   public constructor(mongodbClient: MongoClient) {
     super(MongodbGoogleOauthRepository.COLLECTION_NAME, MongodbGoogleOauthRepository.DATABASE_NAME, mongodbClient)
-    this.collection.createIndex('sourceId', { unique: true })
-    this.collection.createIndex('email', { unique: true })
+    this.collection.createIndex({ sourceId: 1}, { unique: true })
+    this.collection.createIndex({ email: 1}, { unique: true })
   }
 
   protected map(document: MongodbDocument<GoogleOauth>): GoogleOauth {

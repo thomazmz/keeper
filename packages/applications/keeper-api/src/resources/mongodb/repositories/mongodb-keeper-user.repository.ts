@@ -10,7 +10,7 @@ export class MongodbKeeperUserRepository extends MongodbRepository<KeeperUser> i
 
   public constructor(mongodbClient: MongoClient) {
     super(MongodbKeeperUserRepository.COLLECTION_NAME, MongodbKeeperUserRepository.DATABASE_NAME, mongodbClient)
-    this.collection.createIndex('email', { unique: true })
+    this.collection.createIndex({ email: 1 }, { unique: true })
   }
 
   protected map(document: MongodbDocument<KeeperUser>): KeeperUser {

@@ -10,7 +10,7 @@ export class MongodbGoogleInboxRepository extends MongodbRepository<GoogleInbox>
 
   public constructor(mongodbClient: MongoClient) {
     super(MongodbGoogleInboxRepository.COLLECTION_NAME, MongodbGoogleInboxRepository.DATABASE_NAME, mongodbClient)
-    this.collection.createIndex('email', { unique: true })
+    this.collection.createIndex({ email: 1 }, { unique: true })
   }
 
   protected map(document: MongodbDocument<GoogleInbox>): GoogleInbox {
