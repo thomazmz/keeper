@@ -108,4 +108,20 @@ export class GoogleEmailClient {
       date,
     }
   }
+
+  public async getEmailMessageContent(credentials: GoogleOauth.CredentialsMetadata, sourceId: string): Promise<string> {
+    const client = await this.resolveGmailClient(credentials)
+    const response = await client.users.messages.get({
+      userId: "me",
+      id: sourceId,
+      format: "raw",
+    })
+
+    if(!response?.data?.raw) {
+      throw new Error(`Could not load content for message id ${sourceId}. Provider returned empty/undefined vale.`)
+    }
+
+    return response.data.raw
+  }
+
 }
