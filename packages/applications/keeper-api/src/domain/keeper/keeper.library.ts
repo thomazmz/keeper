@@ -1,3 +1,4 @@
+export type * from './keeper-listener/keeper-listener.service'
 export type * from './keeper-user/keeper-user.repository'
 export type * from './keeper-user/keeper-user.service'
 export type * from './keeper-user/keeper-user.domain'

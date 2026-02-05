@@ -38,7 +38,7 @@ export class GoogleInboxService {
   public async resolveGoogleInboxByEmail(email: string): Promise<GoogleInbox> {
     const emailInbox = await this.findGoogleInboxByEmail(email)
     if(emailInbox) return emailInbox
-    const oauthCredentials = await this.googleOauthService.getOauthCredentialsByEmail(email)
+    const oauthCredentials = await this.googleOauthService.getGoogleOauthByEmail(email)
     const emailMetadata = await this.googleInboxClient.getEmailInboxMetadata(oauthCredentials)
     return this.createGoogleInboxByEmail(email, emailMetadata.cursor)
   }

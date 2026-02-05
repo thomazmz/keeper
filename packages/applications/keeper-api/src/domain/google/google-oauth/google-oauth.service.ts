@@ -15,13 +15,13 @@ export class GoogleOauthService {
     this.googleOauthRepository = googleOauthRepository
   }
 
-  public async getOauthCredentialsByEmail(email: string): Promise<GoogleOauth> {
+  public async getGoogleOauthByEmail(email: string): Promise<GoogleOauth> {
     const credentials = await this.googleOauthRepository.findOneByQuery({ email })
     if(!credentials) HttpBadRequestError.throw(`Could not find oauth credentials for email ${email}`)
     return credentials
   }
 
-  public async upsertOauthCredentials(code: string): Promise<GoogleOauth> {
+  public async upsertGoogleOauth(code: string): Promise<GoogleOauth> {
     const credentials = await this.googleOauthClient.getOauthCredentials(code)
 
     const profile = await this.googleOauthClient.getOauthProfile(credentials)

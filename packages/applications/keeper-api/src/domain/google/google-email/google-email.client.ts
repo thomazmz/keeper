@@ -1,6 +1,7 @@
 
 
 import { google, Auth } from 'googleapis'
+import { GoogleInbox } from '@keeper/domain'
 import { GoogleOauth } from '@keeper/domain'
 import { GoogleConfig } from '@keeper/domain';
 import { GoogleEmail } from './google-email.domain'
@@ -11,7 +12,6 @@ export class GoogleEmailClient {
   protected resolveOauthServerClient(options?: Auth.OAuth2ClientOptions) {
     return new google.auth.OAuth2({ ...options,
       clientSecret: this.googleConfig.clientSecret,
-      // redirectUri: this.googleConfig.redirectUri,
       clientId: this.googleConfig.clientId,
     });
   }
@@ -27,11 +27,11 @@ export class GoogleEmailClient {
   }
 
 
-  public async getLatestMessagesMetadata(credentials: GoogleOauth.CredentialsMetadata, inboxMetadata: GoogleEmail.InboxMetadata): Promise<GoogleEmail.MessageMetadata[]> {
+  public async getMessagesMetadata(credentials: GoogleOauth.CredentialsMetadata, inbox: GoogleInbox.Metadata): Promise<GoogleEmail.MessageMetadata[]> {
     const client = await this.resolveGmailClient(credentials)
 
     const response = await client.users.history.list({
-      startHistoryId: inboxMetadata.history,
+      startHistoryId: inbox.cursor,
       historyTypes: ["messageAdded"],
       userId: 'me',
     })
@@ -47,14 +47,23 @@ export class GoogleEmailClient {
         return historyItem.message?.id
       }) as string[]
 
-    console.log('sourceIds:', sourceIds)
-
-    return Promise.all(sourceIds.map((sourceId) => {
+    const settledResults = await Promise.allSettled(sourceIds.map((sourceId) => {
       return this.getEmailMessageMetadata(credentials, sourceId)
     }))
+
+    const fulfilledResults = settledResults
+      .filter((result) => result.status === 'fulfilled')
+      .map(result => result.value)
+
+    // TODO: How to handle rejected results?
+    // const rejectedResults = settledResults
+    //   .filter((result) => result.status === 'rejected')
+    //   .map(result => result.reason)
+
+     return fulfilledResults
   }
 
-  public async getEmailMessageMetadata(credentials: GoogleOauth.CredentialsMetadata, sourceId: string): Promise<GoogleEmail.MessageMetadata> {
+  private async getEmailMessageMetadata(credentials: GoogleOauth.CredentialsMetadata, sourceId: string): Promise<GoogleEmail.MessageMetadata> {
     const client = await this.resolveGmailClient(credentials)
     const response = await client.users.messages.get({
       metadataHeaders: ['from', 'subject', 'date', 'to'],
@@ -95,26 +104,6 @@ export class GoogleEmailClient {
       subject,
       sender,
       date,
-    }
-  }
-
-  public async getEmailInboxMetadata(credentials: GoogleOauth.CredentialsMetadata): Promise<GoogleEmail.InboxMetadata> {
-    const client = await this.resolveGmailClient(credentials)
-    const response = await client.users.getProfile({
-      userId: 'me'
-    })
-
-    if(!response?.data?.historyId) {
-      throw new Error('Could not load gmail inbox metadata. Provider returned empty/undefined history id.')
-    }
-
-    if(!response?.data?.emailAddress) {
-      throw new Error('Could not load gmail inbox metadata. Provider returned empty/undefined email address.')
-    }
-
-    return {
-      history: response?.data?.historyId,
-      address: response?.data?.emailAddress,
     }
   }
 }

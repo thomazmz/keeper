@@ -23,7 +23,7 @@ export class KeeperAuthService {
   }
 
   public async connectWithGoogle(oauthCode: string): Promise<KeeperTokenPair> {
-    const googleOauth = await this.googleOauthService.upsertOauthCredentials(oauthCode)
+    const googleOauth = await this.googleOauthService.upsertGoogleOauth(oauthCode)
 
     const keeperUser = await this.keeperUserService.resolveKeeperUserByEmail(googleOauth.email)
     
