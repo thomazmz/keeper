@@ -14,7 +14,7 @@ export class KeeperListenerService {
 
     const oauth = await this.googleOauthService.getGoogleOauthByEmail(email)
 
-    const messages = await this.googleEmailClient.getMessagesMetadata(oauth, inbox)
+    const messages = await this.googleEmailClient.getEmailMessagesMetadata(oauth, inbox)
 
     return this.keeperEmailService.ingestSourcedEmailEntries(messages)
   }

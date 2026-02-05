@@ -15,17 +15,17 @@ export class MongodbKeeperEmailRepository extends MongodbRepository<KeeperEmail>
 
   protected map(document: MongodbDocument<KeeperEmail>): KeeperEmail {
     return {
-      id: document._id.toHexString(), 
+      id: document._id.toHexString(),
       createdAt: document.createdAt,
       updatedAt: document.updatedAt,
+      data: document.data,
+      type: document.type,
       date: document.date,
+      source: document.source,
       sender: document.sender,
       subject: document.subject,
-      source: document.source,
       sourceId: document.sourceId,
       recipient: document.recipient,
-      // data: document.data,
-      // type: document.type,
     }
   }
 }

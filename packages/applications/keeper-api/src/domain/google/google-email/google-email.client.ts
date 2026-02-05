@@ -29,7 +29,7 @@ export class GoogleEmailClient {
   }
 
 
-  public async getMessagesMetadata(credentials: GoogleOauth.CredentialsMetadata, inbox: GoogleInbox.Metadata): Promise<KeeperEmail.MessageMetadata[]> {
+  public async getEmailMessagesMetadata(credentials: GoogleOauth.CredentialsMetadata, inbox: GoogleInbox.Metadata): Promise<KeeperEmail.MessageMetadata[]> {
     const client = await this.resolveGmailClient(credentials)
 
     const response = await client.users.history.list({
@@ -77,25 +77,25 @@ export class GoogleEmailClient {
     const sender = response?.data?.payload?.headers?.filter(header => header.name?.toLocaleLowerCase() === 'from').map(header => header.value)?.[0]
 
     if(!sender) {
-      throw new Error(`Could not load gmail metadata for message id ${sourceId}. Provider returned empty/undefined sender.`)
+      throw new Error(`Could not load metadata for message id ${sourceId}. Provider returned empty/undefined sender.`)
     }
 
     const timestamp = response?.data?.payload?.headers?.filter(header => header.name?.toLocaleLowerCase() === 'date').map(header => header.value)?.[0]
     
     if(!timestamp) {
-      throw new Error(`Could not load gmail metadata for message id ${sourceId}. Provider returned empty/undefined timestamp.`)
+      throw new Error(`Could not load metadata for message id ${sourceId}. Provider returned empty/undefined timestamp.`)
     }
 
     const recipient = response?.data?.payload?.headers?.filter(header => header.name?.toLocaleLowerCase() === 'to').map(header => header.value)?.[0]
     
     if(!recipient) {
-      throw new Error(`Could not load gmail metadata for message id ${sourceId}. Provider returned empty/undefined recipient.`)
+      throw new Error(`Could not load metadata for message id ${sourceId}. Provider returned empty/undefined recipient.`)
     }
 
     const subject = response?.data?.payload?.headers?.filter(header => header.name?.toLocaleLowerCase() === 'subject').map(header => header.value)?.[0]
     
     if(!subject) {
-      throw new Error(`Could not load gmail metadata for message id ${sourceId}. Provider returned empty/undefined subject.`)
+      throw new Error(`Could not load metadata for message id ${sourceId}. Provider returned empty/undefined subject.`)
     }
 
     const date = new Date(timestamp)

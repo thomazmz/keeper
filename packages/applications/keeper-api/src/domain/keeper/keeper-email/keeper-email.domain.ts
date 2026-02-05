@@ -8,11 +8,11 @@ export type KeeperEmail = {
   readonly source: string;
   readonly sourceId: string;
   readonly recipient: string;
-  // readonly data: string,
-  // readonly type: (
-  //   | 'text/plain'
-  //   | 'text/html'
-  // ),
+  readonly data: string,
+  readonly type: (
+    | 'text/plain'
+    | 'text/html'
+  ),
 }
 
 export declare namespace KeeperEmail {
@@ -25,7 +25,7 @@ export declare namespace KeeperEmail {
     readonly recipient: string;
   }
 
-  export type ContentMetadata = {
+  export type ContentWrapper = {
     readonly data: string,
     readonly type: (
       | 'text/plain'
